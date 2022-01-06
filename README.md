@@ -3,6 +3,10 @@
 This is a [Remix](https://remix.run/docs) example with integration with [Discuzz](https://github.com/discuzz-app/discuzz).
 
 
+## Demo
+
+You can check demo implementation here [https://codesandbox.io/s/remix-example-discuzz-k1xji](https://codesandbox.io/s/remix-example-discuzz-k1xji)
+
 ## Development
 
 From your terminal:
