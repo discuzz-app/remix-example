@@ -11,6 +11,17 @@ export function meta() {
   return { title: "New Remix App" };
 }
 
+// seems a problem with bundler vs remix
+if (typeof process === 'undefined') {
+  window.process = window.process || {
+    env: {
+    }
+  }
+}
+if (typeof global === 'undefined') {
+  window.global = window
+}
+
 export default function App() {
   return (
     <html lang="en">

@@ -1,50 +1,31 @@
-import { lazy, Suspense } from 'react'
+import { Discuzz } from '@discuzz/discuzz'
+import LocaleProviderEn from '@discuzz/locale-en'
+import AuthFirebase from '@discuzz/auth-firebase'
+import DataFirestore from '@discuzz/data-firestore'
 
-const Discuzz = lazy(() => import('@discuzz/discuzz').then(mod => ({ 
-  default: mod.default.Discuzz 
-})))
-const LocaleProviderEn = lazy(() => import('@discuzz/locale-en'))
-const ComposerPlaintext = lazy(() => import('@discuzz/composer-plaintext'))
-const ViewerPlaintext = lazy(() => import('@discuzz/viewer-plaintext'))
-
-if (typeof document !== "undefined") {
-  // fill missing values
-  window.global = window
-  window.process = {
-    env: {
-      NODE_ENV: 'production'
-    }
-  }
-}
 
 export default function Index() {
   return (
     <div>
-      {typeof document !== "undefined" ? (
-        <div key="discuzz">
-          <Suspense fallback={<span>...</span>}>
-            <Discuzz
-              url={window.location.href}
-              service={{
-                apiKey: "AIzaSyDm837cbdbvkrAdYL9TAqUF3iML6UvZXk4",
-                authDomain: "fire-talk-88.firebaseapp.com",
-                projectId: "fire-talk-88",
-                storageBucket: "fire-talk-88.appspot.com",
-                messagingSenderId: "719566664522",
-                appId: "1:719566664522:web:e1a9d26be22387e55b47b3"
-              }}
-              theme="light"
-              auths={['google', 'apple', 'facebook', 'github', 'twitter', 'microsoft', 'yahoo']}
-              config={{
-                composer: ComposerPlaintext,
-                viewer: ViewerPlaintext
-              }}
-              locale={LocaleProviderEn}
-            />
-          </Suspense>
-        </div>
-      ) : (
-        <div key="discuzz" />
+      {global.document && (
+        <Discuzz
+          url={window.location && window.location.href}
+          service={{
+            auth: AuthFirebase,
+            data: DataFirestore,
+            config: {
+              apiKey: "AIzaSyDm837cbdbvkrAdYL9TAqUF3iML6UvZXk4",
+              authDomain: "fire-talk-88.firebaseapp.com",
+              projectId: "fire-talk-88",
+              storageBucket: "fire-talk-88.appspot.com",
+              messagingSenderId: "719566664522",
+              appId: "1:719566664522:web:e1a9d26be22387e55b47b3"
+            }
+          }}
+          theme="light"
+          auths={['google', 'apple', 'facebook', 'github', 'twitter', 'microsoft', 'yahoo']}
+          locale={LocaleProviderEn}
+        />
       )}
     </div>
   )
